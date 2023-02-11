@@ -55,8 +55,7 @@ app.post("/register", function(req, res){
         console.log(err);
       }
     })
-});
-  //creating a document from a Model
+  });
 });
 
 
@@ -77,8 +76,6 @@ app.post("/login", function(req, res){
     }
   });
 });
-
-
 
 
 
