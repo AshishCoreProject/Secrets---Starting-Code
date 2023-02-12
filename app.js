@@ -70,6 +70,17 @@ app.get("/secrets", function(req, res){
   }
 });
 
+//adding logout route
+app.get("/logout", function(req, res){
+  req.logout(function(err){
+    if(err){
+      console.log(err);
+    }else{
+      res.redirect("/");
+    }
+  })
+})
+
 //updating register route
 app.post("/register", function(req, res){
   User.register({username : req.body.username}, req.body.password, function(err, user){
@@ -84,8 +95,24 @@ app.post("/register", function(req, res){
   });
 });
 
-//empty these
+//updating login route
 app.post("/login", function(req, res){
+   const user = new User({
+    username : req.body.username ,
+    password : req.body.password
+});
+
+   req.login(user, function(err){
+     if(err){
+       console.log(err);
+       res.redirect("/register");
+     }else{
+       passport.authenticate('local')(req, res, function(){
+         res.redirect("/secrets");
+       })
+     }
+   })
+
 
 });
 
